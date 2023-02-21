@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { pushService } from './push.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular12push';
+  constructor(private messagingService: pushService) { }
+  ngOnInit() {
+    this.messagingService.requestPermission();
+  }
 }
