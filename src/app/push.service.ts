@@ -6,7 +6,13 @@ import { HttpClient } from '@angular/common/http';
 export class pushService {
   
   constructor(private afMessaging: AngularFireMessaging,
-              private httpClient: HttpClient) { }
+              private httpClient: HttpClient) {
+			  
+    this.afMessaging.messages.subscribe((message) => {
+      console.log('Received a notification:', message);
+      // call your function here
+    });
+			  }
   requestPermission() {
     this.afMessaging.requestPermission
       .subscribe(
@@ -14,7 +20,7 @@ export class pushService {
           console.log('Permission granted!');
           this.afMessaging.getToken.subscribe((token: any) => {
             console.log(token);
-            this.sendToken(token);
+            this.sendToken(token); 
           });
         },
         (error: any) => { console.error(error); },  
